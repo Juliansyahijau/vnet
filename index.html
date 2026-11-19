@@ -14,7 +14,7 @@
             padding-bottom: 12px;
         }
         #mainNavbar .nav-link {
-            color: rgba(255, 255, 255, 0.92);
+            color: rgba(255, 255, 255, 0.95);
             font-weight: 500;
             transition: color 0.3s ease;
         }
@@ -22,7 +22,7 @@
             color: #ffffff;
         }
         #mainNavbar.scrolled {
-            background-color: rgba(255, 255, 255, 0.92);
+            background-color: rgba(255, 255, 255, 0.94);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -39,11 +39,11 @@
         /* Supaya menu collapse di HP tetap terbaca & rapi saat terbuka */
         @media (max-width: 991.98px) {
             #mainNavbar .navbar-collapse {
-                background-color: rgba(13, 110, 253, 0.96);
-                padding: 12px 16px;
+                background-color: rgba(13, 110, 253, 0.97);
+                padding: 14px 16px;
                 border-radius: 12px;
                 margin-top: 10px;
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
             }
             #mainNavbar.scrolled .navbar-collapse {
                 background-color: #ffffff;
@@ -53,7 +53,7 @@
             }
         }
         #mainNavbar .navbar-toggler {
-            border-color: rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.6);
         }
         #mainNavbar .navbar-toggler-icon {
             filter: invert(1) brightness(2);
@@ -177,7 +177,7 @@
             }
         }
 
-        /* Selalu tampil stabil supaya tidak pernah nyangkut/hilang */
+        /* Selalu tampil stabil */
         .reveal-section {
             opacity: 1 !important;
             transform: none !important;
@@ -196,7 +196,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navMenu">
-                <div class="navbar-nav ms-auto gap-lg-2 mt-2 mt-lg-0">
+                <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2 mt-2 mt-lg-0">
                     <a class="nav-link" href="#beranda">Beranda</a>
                     <a class="nav-link" href="#paket">Paket</a>
                     <a class="nav-link" href="#speedtest">Cek Kecepatan</a>
@@ -242,7 +242,7 @@
         </div>
     </header>
 
-    <!-- Paket Internet Sesuai Brosur Asli -->
+    <!-- Paket Internet -->
     <section id="paket" class="container py-5 reveal-section">
         <h2 class="text-center mb-4 mb-md-5 fw-bold">Pilihan Paket Internet</h2>
         <div class="row justify-content-center">
@@ -326,15 +326,19 @@
             <div class="col-md-6">
                 <div class="card shadow p-3 p-md-4 rounded-4">
                     <h3 class="text-center mb-2 fw-bold">Formulir Pendaftaran VNET</h3>
-                    <p class="text-center text-muted small mb-4">Admin WA: 082120271885</p>
+                    <p class="text-center text-muted small mb-4">Admin WA: 0895370719061</p>
 
-                    <!-- Notifikasi Pesan Sukses (Mirip Contoh Gambar) -->
+                    <!-- Notifikasi Pesan Sukses -->
                     <div id="alertSuccess" class="alert alert-success d-none align-items-center mb-3 rounded-3 shadow-sm" role="alert">
                         <span class="me-2 fs-5">✔️</span>
                         <div class="small fw-semibold">Pesan berhasil dikirim! Tim kami akan menghubungi Anda segera.</div>
                     </div>
 
                     <form id="formPendaftaran">
+                        <input type="hidden" name="access_key" value="f4341a4c-f12d-4da5-8cd7-81f42820d6f0">
+                        <input type="hidden" name="subject" value="Pendaftaran Baru VNET">
+                        <input type="hidden" name="from_name" value="Website VNET">
+
                         <div class="mb-3">
                             <label class="form-label">Nama Lengkap</label>
                             <input type="text" name="nama" class="form-control" required>
@@ -370,11 +374,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Script Navbar & AJAX Form -->
+    <!-- Script Navbar & AJAX Web3Forms -->
     <script>
+        const navbar = document.getElementById('mainNavbar');
+
         // Efek Navbar saat di-scroll
         window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('mainNavbar');
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
@@ -393,7 +398,7 @@
             });
         });
 
-        // AJAX Form Submission (Tanpa Pop-up, Muncul Notifikasi di Form)
+        // AJAX Form Submission via Web3Forms
         const formPendaftaran = document.getElementById('formPendaftaran');
         const alertSuccess = document.getElementById('alertSuccess');
         const btnKirim = document.getElementById('btnKirim');
@@ -406,16 +411,16 @@
 
             const formData = new FormData(formPendaftaran);
 
-            fetch('proses.php', {
+            fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text())
-            .then(data => {
+            .then(response => response.json())
+            .then(result => {
                 btnKirim.disabled = false;
                 btnKirim.innerText = "Kirim Pendaftaran";
 
-                if (data.trim() === 'success') {
+                if (result.success) {
                     alertSuccess.classList.remove('d-none');
                     alertSuccess.classList.add('d-flex');
                     formPendaftaran.reset();
@@ -425,7 +430,7 @@
                         alertSuccess.classList.add('d-none');
                     }, 5000);
                 } else {
-                    alert('Gagal menyimpan data dari server: ' + data);
+                    alert('Gagal mengirim pendaftaran: ' + (result.message || 'Coba lagi.'));
                 }
             })
             .catch(error => {
