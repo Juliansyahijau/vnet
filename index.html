@@ -10,8 +10,8 @@
         #mainNavbar {
             transition: all 0.35s ease;
             background-color: transparent;
-            padding-top: 15px;
-            padding-bottom: 15px;
+            padding-top: 12px;
+            padding-bottom: 12px;
         }
         #mainNavbar .nav-link {
             color: rgba(255, 255, 255, 0.92);
@@ -22,7 +22,7 @@
             color: #ffffff;
         }
         #mainNavbar.scrolled {
-            background-color: rgba(255, 255, 255, 0.85);
+            background-color: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -36,17 +36,79 @@
             color: #0d6efd;
         }
 
-        /* Hero Section dengan Animasi Meteor dari Atas-Kiri ke Bawah-Kiri */
+        /* Supaya menu collapse di HP tetap terbaca & rapi saat terbuka */
+        @media (max-width: 991.98px) {
+            #mainNavbar .navbar-collapse {
+                background-color: rgba(13, 110, 253, 0.96);
+                padding: 12px 16px;
+                border-radius: 12px;
+                margin-top: 10px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+            #mainNavbar.scrolled .navbar-collapse {
+                background-color: #ffffff;
+            }
+            #mainNavbar.scrolled .navbar-toggler-icon {
+                filter: invert(1);
+            }
+        }
+        #mainNavbar .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        #mainNavbar .navbar-toggler-icon {
+            filter: invert(1) brightness(2);
+        }
+
+        /* Hero Section dengan Animasi Meteor Responsif */
         .hero-animated {
             position: relative;
             background: linear-gradient(135deg, #0a58ca 0%, #0d6efd 50%, #084298 100%);
             overflow: hidden;
-            padding-top: 120px;
+            padding-top: 100px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
+        .hero-logo {
+            max-height: 130px;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+        }
+        .hero-title {
+            font-size: 1.75rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .hero-subtitle {
+            font-size: 1.1rem;
+        }
+        .hero-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.92;
+        }
+        @media (min-width: 768px) {
+            .hero-animated {
+                padding-top: 120px;
+            }
+            .hero-logo {
+                max-height: 180px;
+            }
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+            .hero-desc {
+                font-size: 1.15rem;
+            }
+        }
+
         .hero-content {
             position: relative;
             z-index: 2;
         }
+
+        /* Default Mobile (< 768px): jatuh lurus dari atas ke bawah */
         .lines-bg {
             position: absolute;
             top: 0;
@@ -55,28 +117,52 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
+            overflow: hidden;
+            --meteor-angle: 0deg;
+            --meteor-x: 0px;
+            --meteor-y: 105vh;
         }
         .line {
             position: absolute;
             width: 2px;
-            height: 120px;
+            height: 90px;
             background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.75) 50%, rgba(255,255,255,0) 100%);
             border-radius: 50%;
             opacity: 0;
-            transform: rotate(35deg);
+            transform: translate3d(0, 0, 0) rotate(var(--meteor-angle));
+            will-change: transform, opacity;
             animation: meteorFall 4s linear infinite;
         }
-        .line:nth-child(1) { top: -150px; left: 10%; animation-duration: 3.5s; animation-delay: 0s; height: 140px; }
-        .line:nth-child(2) { top: -150px; left: 30%; animation-duration: 4.8s; animation-delay: 1.2s; height: 100px; }
-        .line:nth-child(3) { top: -150px; left: 55%; animation-duration: 3.2s; animation-delay: 2.5s; height: 160px; }
-        .line:nth-child(4) { top: -150px; left: 75%; animation-duration: 4.2s; animation-delay: 0.7s; height: 120px; }
-        .line:nth-child(5) { top: -150px; left: 90%; animation-duration: 3.8s; animation-delay: 3.1s; height: 130px; }
-        .line:nth-child(6) { top: -150px; left: 20%; animation-duration: 5.1s; animation-delay: 1.8s; height: 110px; }
-        .line:nth-child(7) { top: -150px; left: 68%; animation-duration: 4.0s; animation-delay: 3.9s; height: 150px; }
+        .line:nth-child(1) { top: -120px; left: 10%; animation-duration: 3.5s; animation-delay: 0s; height: 100px; }
+        .line:nth-child(2) { top: -120px; left: 26%; animation-duration: 4.8s; animation-delay: 1.2s; height: 75px; }
+        .line:nth-child(3) { top: -120px; left: 45%; animation-duration: 3.2s; animation-delay: 2.5s; height: 110px; }
+        .line:nth-child(4) { top: -120px; left: 64%; animation-duration: 4.2s; animation-delay: 0.7s; height: 85px; }
+        .line:nth-child(5) { top: -120px; left: 82%; animation-duration: 3.8s; animation-delay: 3.1s; height: 95px; }
+        .line:nth-child(6) { top: -120px; left: 36%; animation-duration: 5.1s; animation-delay: 1.8s; height: 80px; }
+        .line:nth-child(7) { top: -120px; left: 73%; animation-duration: 4.0s; animation-delay: 3.9s; height: 105px; }
+
+        /* Desktop / Tablet (>= 768px): jatuh diagonal miring */
+        @media (min-width: 768px) {
+            .lines-bg {
+                --meteor-angle: 35deg;
+                --meteor-x: -35vw;
+                --meteor-y: 110vh;
+            }
+            .line {
+                height: 120px;
+            }
+            .line:nth-child(1) { top: -150px; left: 10%; height: 140px; }
+            .line:nth-child(2) { top: -150px; left: 30%; height: 100px; }
+            .line:nth-child(3) { top: -150px; left: 55%; height: 160px; }
+            .line:nth-child(4) { top: -150px; left: 75%; height: 120px; }
+            .line:nth-child(5) { top: -150px; left: 90%; height: 130px; }
+            .line:nth-child(6) { top: -150px; left: 20%; height: 110px; }
+            .line:nth-child(7) { top: -150px; left: 68%; height: 150px; }
+        }
 
         @keyframes meteorFall {
             0% {
-                transform: translateY(0) translateX(0) rotate(35deg);
+                transform: translate3d(0, 0, 0) rotate(var(--meteor-angle));
                 opacity: 0;
             }
             15% {
@@ -86,20 +172,15 @@
                 opacity: 0.85;
             }
             100% {
-                transform: translateY(110vh) translateX(-35vw) rotate(35deg);
+                transform: translate3d(var(--meteor-x), var(--meteor-y), 0) rotate(var(--meteor-angle));
                 opacity: 0;
             }
         }
 
-        /* Efek Hidden Awal & Animasi Muncul saat di-scroll (Scroll Reveal) */
+        /* Selalu tampil stabil supaya tidak pernah nyangkut/hilang */
         .reveal-section {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .reveal-section.active {
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 1 !important;
+            transform: none !important;
         }
     </style>
 </head>
@@ -109,19 +190,24 @@
     <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="logo.png" alt="VNET Logo" height="40">
+                <img src="logo.png" alt="VNET Logo" height="36">
             </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="#beranda">Beranda</a>
-                <a class="nav-link" href="#paket">Paket</a>
-                <a class="nav-link" href="#speedtest">Cek Kecepatan</a>
-                <a class="nav-link" href="#daftar">Mulai Berlangganan</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <div class="navbar-nav ms-auto gap-lg-2 mt-2 mt-lg-0">
+                    <a class="nav-link" href="#beranda">Beranda</a>
+                    <a class="nav-link" href="#paket">Paket</a>
+                    <a class="nav-link" href="#speedtest">Cek Kecepatan</a>
+                    <a class="nav-link" href="#daftar">Mulai Berlangganan</a>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header id="beranda" class="hero-animated text-white text-center pb-5" style="min-height: 100vh; display: flex; align-items: center;">
+    <header id="beranda" class="hero-animated text-white text-center pb-5">
         <div class="lines-bg">
             <div class="line"></div>
             <div class="line"></div>
@@ -135,35 +221,35 @@
         <div class="container hero-content">
             <!-- Logo VNET Utama -->
             <div class="mb-3">
-                <img src="logo.png" alt="Logo VNET" class="img-fluid" style="max-height: 180px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));">
+                <img src="logo.png" alt="Logo VNET" class="img-fluid hero-logo">
             </div>
 
             <!-- Tagline Utama -->
-            <h1 class="fw-bold mt-2 text-white" style="font-size: 2.2rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+            <h1 class="fw-bold mt-2 text-white hero-title">
                 Koneksi Cepat, Stabil & Terpercaya
             </h1>
-            <p class="fs-4 fw-semibold text-white-50 mb-3">
+            <p class="fw-semibold text-white-50 mb-3 hero-subtitle">
                 Bebas Device & Gratis Biaya Pemasangan!
             </p>
             
             <!-- Paragraf Pengantar -->
-            <p class="text-white col-md-8 mx-auto mb-4" style="font-size: 1.15rem; line-height: 1.6; opacity: 0.9;">
+            <p class="text-white col-md-8 mx-auto mb-4 hero-desc">
                 VNET hadir sebagai solusi koneksi internet andalan warga dengan performa stabil, tanpa batasan kuota, serta layanan responsif demi kenyamanan aktivitas digital harian Anda.
             </p>
 
             <!-- Tombol Aksi -->
-            <a href="#paket" class="btn btn-light btn-lg text-primary fw-bold px-4 py-3 shadow-sm rounded-pill">Lihat Pilihan Paket →</a>
+            <a href="#paket" class="btn btn-light btn-lg text-primary fw-bold px-4 py-2 py-md-3 shadow-sm rounded-pill">Lihat Pilihan Paket →</a>
         </div>
     </header>
 
     <!-- Paket Internet Sesuai Brosur Asli -->
-    <section id="paket" class="container py-5 reveal-section" style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center;">
-        <h2 class="text-center mb-5 fw-bold">Pilihan Paket Internet</h2>
+    <section id="paket" class="container py-5 reveal-section">
+        <h2 class="text-center mb-4 mb-md-5 fw-bold">Pilihan Paket Internet</h2>
         <div class="row justify-content-center">
             
             <!-- Paket 1: 10 Mbps -->
-            <div class="col-md-3 mb-4">
-                <div class="card shadow-lg border-0 text-center p-4 h-100 rounded-4">
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="card shadow-lg border-0 text-center p-3 p-md-4 h-100 rounded-4">
                     <h5 class="text-muted fw-bold">PAKET REGULER</h5>
                     <h2 class="fw-bold my-2">10 <small class="fs-6 text-muted">Mbps</small></h2>
                     <h4 class="text-primary fw-bold mb-4">Rp 125.000<small class="fs-6 text-muted">/bulan</small></h4>
@@ -177,8 +263,8 @@
             </div>
 
             <!-- Paket 2: 20 Mbps -->
-            <div class="col-md-3 mb-4">
-                <div class="card shadow-lg border-0 text-center p-4 h-100 rounded-4">
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="card shadow-lg border-0 text-center p-3 p-md-4 h-100 rounded-4">
                     <h5 class="text-muted fw-bold">PAKET FAMILY</h5>
                     <h2 class="fw-bold my-2">20 <small class="fs-6 text-muted">Mbps</small></h2>
                     <h4 class="text-primary fw-bold mb-4">Rp 150.000<small class="fs-6 text-muted">/bulan</small></h4>
@@ -192,10 +278,10 @@
             </div>
 
             <!-- Paket 3: 30 Mbps (Populer) -->
-            <div class="col-md-3 mb-4">
-                <div class="card shadow-lg border border-primary border-2 text-center p-4 h-100 rounded-4 position-relative">
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="card shadow-lg border border-primary border-2 text-center p-3 p-md-4 h-100 rounded-4 position-relative">
                     <span class="badge bg-primary position-absolute top-0 start-50 translate-middle px-3 py-2 rounded-pill shadow-sm">Populer</span>
-                    <h5 class="text-muted fw-bold">PAKET PRO</h5>
+                    <h5 class="text-muted fw-bold mt-2">PAKET PRO</h5>
                     <h2 class="fw-bold my-2">30 <small class="fs-6 text-muted">Mbps</small></h2>
                     <h4 class="text-primary fw-bold mb-4">Rp 200.000<small class="fs-6 text-muted">/bulan</small></h4>
                     <ul class="list-unstyled text-start small mb-4">
@@ -208,8 +294,8 @@
             </div>
 
             <!-- Paket 4: 50 Mbps -->
-            <div class="col-md-3 mb-4">
-                <div class="card shadow-lg border-0 text-center p-4 h-100 rounded-4">
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="card shadow-lg border-0 text-center p-3 p-md-4 h-100 rounded-4">
                     <h5 class="text-muted fw-bold">PAKET BISNIS</h5>
                     <h2 class="fw-bold my-2">50 <small class="fs-6 text-muted">Mbps</small></h2>
                     <h4 class="text-primary fw-bold mb-4">Rp 250.000<small class="fs-6 text-muted">/bulan</small></h4>
@@ -228,31 +314,17 @@
         </div>
     </section>
 
-!-- Fitur OpenSpeedTest (Tampil Langsung di Website) -->
-<section id="speedtest" class="bg-light py-5 reveal-section">
-  <div class="container text-center">
-    <h2 class="fw-bold mb-3">Cek Kecepatan Internet Anda</h2>
-    <p class="text-muted mb-4">Uji performa jaringan Anda secara langsung di bawah ini.</p>
-
-    <div class="card shadow-sm p-3 bg-white rounded-4 border-0">
-      <div class="ratio ratio-16x9" style="min-height: 450px;">
-        <iframe
-          src="https://openspeedtest.com/selfhosted-speedtest"
-          title="OpenSpeedTest"
-          class="rounded-3 border-0"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Cek Kecepatan OpenSpeedTest -->
+    <section id="speedtest" class="container py-5 reveal-section">
+        <h2 class="text-center mb-4 fw-bold">Cek Kecepatan Internet</h2>
+        <div style="text-align:right;"><div style="min-height:360px;"><div style="width:100%;height:0;padding-bottom:50%;position:relative;"><iframe style="border:none;position:absolute;top:0;left:0;width:100%;height:100%;min-height:360px;border:none;overflow:hidden !important;" src="//openspeedtest.com/speedtest"></iframe></div></div>Provided by <a href="https://openspeedtest.com">OpenSpeedtest.com</a></div>
+    </section>
 
     <!-- Form Pendaftaran -->
     <section id="daftar" class="container py-5 reveal-section">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card shadow p-4">
+                <div class="card shadow p-3 p-md-4 rounded-4">
                     <h3 class="text-center mb-2 fw-bold">Formulir Pendaftaran VNET</h3>
                     <p class="text-center text-muted small mb-4">Admin WA: 0895370719061</p>
 
@@ -296,7 +368,9 @@
         <p class="mb-0">&copy; 2026 VNET .Proyek PKL RPL.</p>
     </footer>
 
-    <!-- Script Navbar, Scroll Reveal, & AJAX Form -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script Navbar & AJAX Form -->
     <script>
         // Efek Navbar saat di-scroll
         window.addEventListener('scroll', function() {
@@ -308,22 +382,16 @@
             }
         });
 
-        // Efek Muncul (Reveal) saat elemen di-scroll ke bawah
-        window.addEventListener('scroll', revealOnScroll);
-
-        function revealOnScroll() {
-            const reveals = document.querySelectorAll('.reveal-section');
-            for (let i = 0; i < reveals.length; i++) {
-                let windowHeight = window.innerHeight;
-                let elementTop = reveals[i].getBoundingClientRect().top;
-                let elementVisible = 150; 
-
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add('active');
+        // Tutup menu navbar otomatis di HP setelah klik link
+        document.querySelectorAll('#navMenu .nav-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                const navMenu = document.getElementById('navMenu');
+                const bsCollapse = bootstrap.Collapse.getInstance(navMenu);
+                if (bsCollapse) {
+                    bsCollapse.hide();
                 }
-            }
-        }
-        revealOnScroll();
+            });
+        });
 
         // AJAX Form Submission (Tanpa Pop-up, Muncul Notifikasi di Form)
         const formPendaftaran = document.getElementById('formPendaftaran');
